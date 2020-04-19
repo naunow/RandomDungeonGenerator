@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dungeon.dart';
 
 void main() => runApp(MyApp());
 
@@ -45,28 +46,60 @@ class _NewDungeonState extends State<NewDungeon> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.deepPurpleAccent,
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.arrow_back_ios),
-          color: Colors.white,
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(30.0), topLeft: Radius.circular(30.0)),
-          color: Colors.white,
-        ),
-        child: ListView(
-          padding: EdgeInsets.all(45.0),
-          children: <Widget>[
-            dungeonContainer(context),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomLeft,
+          stops: [0.1, 0.3, 0.6, 0.9],
+          colors: [
+            Colors.deepOrange[100],
+            Colors.deepOrange[200],
+            Colors.pink[200],
+            Colors.deepPurpleAccent[100],
           ],
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.arrow_back_ios),
+            color: Colors.white,
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+        ),
+        body: DraggableScrollableSheet(
+          initialChildSize: 0.8,
+          minChildSize: 0.4,
+          maxChildSize: 1.0,
+          builder: (BuildContext context, myScrollController){
+            return Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    spreadRadius: 4,
+                    blurRadius: 10,
+                  )
+                ],
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(30.0),
+                    topLeft: Radius.circular(30.0)),
+                color: Colors.white,
+              ),
+              child: ListView.builder(
+                controller: myScrollController,
+                itemCount: 1,
+                padding: EdgeInsets.all(45.0),
+                itemBuilder: (BuildContext context, int index){
+                  return dungeonContainer(context);
+                },
+              ),
+            );
+          },
         ),
       ),
     );
@@ -96,14 +129,17 @@ class _NewDungeonState extends State<NewDungeon> {
             child: RaisedButton(
               child: Text(
                 "CREATE",
-                style: TextStyle(fontFamily: 'Quicksand', fontSize: 18),
+                style: quicksand(fontSize: 18.0),
               ),
               color: Colors.white,
               shape: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.deepPurpleAccent),
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(this.context,
+                    MaterialPageRoute(builder: (context) => DungeonPage()));
+              },
               splashColor: Colors.deepPurpleAccent,
             ),
           ),
@@ -122,7 +158,7 @@ class _NewDungeonState extends State<NewDungeon> {
         alignment: AlignmentDirectional.topStart,
         child: Text(
           labelText,
-          style: TextStyle(fontSize: 24, fontFamily: 'Quicksand'),
+          style: quicksand(fontSize: 24.0),
           textAlign: TextAlign.left,
         ));
   }
@@ -135,6 +171,7 @@ class _NewDungeonState extends State<NewDungeon> {
       padding: const EdgeInsets.all(8.0),
       child: TextField(
         controller: new TextEditingController(text: dungeonName),
+        style: quicksand(),
         decoration: InputDecoration(
             contentPadding: EdgeInsets.all(15.0),
             fillColor: Colors.grey[200],
@@ -168,7 +205,7 @@ class _NewDungeonState extends State<NewDungeon> {
             padding: const EdgeInsets.only(left: 30.0),
             child: Text(
               labelText,
-              style: TextStyle(fontFamily: 'Quicksand', fontSize: 18),
+              style: quicksand(fontSize: 18.0),
             ),
           ),
         ],
@@ -178,17 +215,61 @@ class _NewDungeonState extends State<NewDungeon> {
 
   /// Monster Check List
   Container monsterCheckList() {
+    createMonsterCheckBoxList() {
+      var list = List<Widget>();
+      for (var monster in dungeonData.monsterList) {
+        var tile = CheckboxListTile(
+          value: monster.checked,
+          activeColor: Colors.deepPurpleAccent,
+          title: Text(
+            monster.monsterName,
+            style: quicksand(),
+          ),
+          controlAffinity: ListTileControlAffinity.leading,
+          onChanged: (bool value) {
+            setState(() {
+              monster.checked = value;
+            });
+          },
+        );
+        list.add(tile);
+      }
+      return list;
+    }
+
     return Container(
       child: Column(
-        children: createMonsterCheckBoxList(dungeonData.monsterList),
+        children: createMonsterCheckBoxList(),
       ),
     );
   }
 
   Container objectsCheckList() {
+    createObjectCheckBoxList() {
+      var list = List<Widget>();
+      for (var object in dungeonData.objectList) {
+        var tile = CheckboxListTile(
+          value: object.checked,
+          activeColor: Colors.deepPurpleAccent,
+          title: Text(
+            object.objectName,
+            style: quicksand(),
+          ),
+          controlAffinity: ListTileControlAffinity.leading,
+          onChanged: (bool value) {
+            setState(() {
+              object.checked = value;
+            });
+          },
+        );
+        list.add(tile);
+      }
+      return list;
+    }
+
     return Container(
       child: Column(
-        children: createObjectCheckBoxList(dungeonData.objectList),
+        children: createObjectCheckBoxList(),
       ),
     );
   }
@@ -218,7 +299,10 @@ class _NewDungeonState extends State<NewDungeon> {
             ),
           ),
         ),
-        Text(dungeonData.vertical.toString()),
+        Text(
+          dungeonData.vertical.toString(),
+          style: quicksand(),
+        ),
         InkWell(
           onTap: () {
             setState(() {
@@ -262,7 +346,10 @@ class _NewDungeonState extends State<NewDungeon> {
             ),
           ),
         ),
-        Text(dungeonData.horizontal.toString()),
+        Text(
+          dungeonData.horizontal.toString(),
+          style: quicksand(),
+        ),
         InkWell(
           onTap: () {
             setState(() {
@@ -285,49 +372,13 @@ class _NewDungeonState extends State<NewDungeon> {
     );
   }
 
-  /// Monster List
-  createMonsterCheckBoxList(List<Monster> monsterList) {
-    var list = List<Widget>();
-    for (var monster in monsterList) {
-      var tile = CheckboxListTile(
-        value: monster.checked,
-        activeColor: Colors.deepPurpleAccent,
-        title: Text(
-          monster.monsterName,
-          style: TextStyle(fontFamily: 'Quicksand'),
-        ),
-        controlAffinity: ListTileControlAffinity.leading,
-        onChanged: (bool value) {
-          setState(() {
-            monster.checked = value;
-          });
-        },
-      );
-      list.add(tile);
-    }
-    return list;
-  }
+  /// Default Text Style
+  quicksand({double fontSize: 14.0}) {
 
-  createObjectCheckBoxList(List<Object> objectList) {
-    var list = List<Widget>();
-    for (var object in objectList) {
-      var tile = CheckboxListTile(
-        value: object.checked,
-        activeColor: Colors.deepPurpleAccent,
-        title: Text(
-          object.objectName,
-          style: TextStyle(fontFamily: 'Quicksand'),
-        ),
-        controlAffinity: ListTileControlAffinity.leading,
-        onChanged: (bool value) {
-          setState(() {
-            object.checked = value;
-          });
-        },
-      );
-      list.add(tile);
-    }
-    return list;
+    return TextStyle(
+      fontFamily: 'Quicksand',
+      fontSize: fontSize,
+    );
   }
 }
 
