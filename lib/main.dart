@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'Monster.dart';
+import 'Object.dart';
 import 'dungeon.dart';
 
 void main() => runApp(MyApp());
@@ -37,12 +39,14 @@ class NewDungeon extends StatefulWidget {
 }
 
 class _NewDungeonState extends State<NewDungeon> {
-  var dungeonData = DungeonData(
-      'Test Cave',
-      8,
-      6,
-      [Monster('goblin'), Monster('troll')],
-      [Object('barrel'), Object('brick wall'), Object('trap')]);
+  var dungeonData = DungeonData('Test Cave', 8, 6, [
+    Monster('goblin', Icon(Icons.golf_course), false),
+    Monster('troll', Icon(Icons.control_point), false)
+  ], [
+    Object('barrel', Icon(Icons.battery_alert), false),
+    Object('brick wall', Icon(Icons.broken_image), false),
+    Object('trap', Icon(Icons.track_changes), false)
+  ]);
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +79,7 @@ class _NewDungeonState extends State<NewDungeon> {
           initialChildSize: 0.8,
           minChildSize: 0.4,
           maxChildSize: 1.0,
-          builder: (BuildContext context, myScrollController){
+          builder: (BuildContext context, myScrollController) {
             return Container(
               decoration: BoxDecoration(
                 boxShadow: [
@@ -94,7 +98,7 @@ class _NewDungeonState extends State<NewDungeon> {
                 controller: myScrollController,
                 itemCount: 1,
                 padding: EdgeInsets.all(45.0),
-                itemBuilder: (BuildContext context, int index){
+                itemBuilder: (BuildContext context, int index) {
                   return dungeonContainer(context);
                 },
               ),
@@ -137,8 +141,10 @@ class _NewDungeonState extends State<NewDungeon> {
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
               onPressed: () {
-                Navigator.push(this.context,
-                    MaterialPageRoute(builder: (context) => DungeonPage()));
+                Navigator.push(
+                    this.context,
+                    MaterialPageRoute(
+                        builder: (context) => DungeonPage(dungeonData)));
               },
               splashColor: Colors.deepPurpleAccent,
             ),
@@ -222,7 +228,7 @@ class _NewDungeonState extends State<NewDungeon> {
           value: monster.checked,
           activeColor: Colors.deepPurpleAccent,
           title: Text(
-            monster.monsterName,
+            monster.name,
             style: quicksand(),
           ),
           controlAffinity: ListTileControlAffinity.leading,
@@ -252,7 +258,7 @@ class _NewDungeonState extends State<NewDungeon> {
           value: object.checked,
           activeColor: Colors.deepPurpleAccent,
           title: Text(
-            object.objectName,
+            object.name,
             style: quicksand(),
           ),
           controlAffinity: ListTileControlAffinity.leading,
@@ -374,7 +380,6 @@ class _NewDungeonState extends State<NewDungeon> {
 
   /// Default Text Style
   quicksand({double fontSize: 14.0}) {
-
     return TextStyle(
       fontFamily: 'Quicksand',
       fontSize: fontSize,
@@ -397,16 +402,18 @@ class DungeonData {
       this.monsterList, this.objectList);
 }
 
-class Monster {
-  final String monsterName;
-  bool checked = false;
+//class Monster {
+//  final String monsterName;
+//  bool checked = false;
+//  final Icon monsterIcon;
+//
+//  Monster(this.monsterName, this.monsterIcon);
+//}
 
-  Monster(this.monsterName);
-}
-
-class Object {
-  final String objectName;
-  bool checked = false;
-
-  Object(this.objectName);
-}
+//class Object {
+//  final String objectName;
+//  bool checked = false;
+//  final Icon objectIcon;
+//
+//  Object(this.objectName, this.objectIcon);
+//}
