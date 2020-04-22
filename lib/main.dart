@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'Monster.dart';
 import 'Object.dart';
 import 'dungeon.dart';
+import 'CommonStyle.dart';
 
 void main() => runApp(MyApp());
 
@@ -114,17 +115,17 @@ class _NewDungeonState extends State<NewDungeon> {
     return Container(
       child: Column(
         children: <Widget>[
-          labelContainer(labelText: 'Dungeon Name'),
+          CommonStyle.labelContainer(labelText: 'Dungeon Name'),
           dungeonNameTextBox(dungeonData.dungeonName),
           SizedBox(height: 24.0),
-          labelContainer(labelText: 'Grid'),
+          CommonStyle.labelContainer(labelText: 'Grid'),
           gridBox(vertical(), 'Vertical'),
           gridBox(horizontal(), 'Horizontal'),
           SizedBox(height: 24.0),
-          labelContainer(labelText: 'Monsters'),
+          CommonStyle.labelContainer(labelText: 'Monsters'),
           monsterCheckList(),
           SizedBox(height: 24.0),
-          labelContainer(labelText: 'Objects'),
+          CommonStyle.labelContainer(labelText: 'Objects'),
           objectsCheckList(),
           SizedBox(height: 50.0),
           ButtonTheme(
@@ -133,7 +134,7 @@ class _NewDungeonState extends State<NewDungeon> {
             child: RaisedButton(
               child: Text(
                 "CREATE",
-                style: quicksand(fontSize: 18.0),
+                style: CommonStyle.quicksand(fontSize: 18.0),
               ),
               color: Colors.white,
               shape: OutlineInputBorder(
@@ -159,15 +160,15 @@ class _NewDungeonState extends State<NewDungeon> {
 //*****************************
 
   /// Label Container
-  Container labelContainer({String labelText}) {
-    return Container(
-        alignment: AlignmentDirectional.topStart,
-        child: Text(
-          labelText,
-          style: quicksand(fontSize: 24.0),
-          textAlign: TextAlign.left,
-        ));
-  }
+//  Container labelContainer({String labelText}) {
+//    return Container(
+//        alignment: AlignmentDirectional.topStart,
+//        child: Text(
+//          labelText,
+//          style: CommonStyle.quicksand(fontSize: 24.0),
+//          textAlign: TextAlign.left,
+//        ));
+//  }
 
   /// Dungeon Name Text Box
   ///
@@ -177,7 +178,7 @@ class _NewDungeonState extends State<NewDungeon> {
       padding: const EdgeInsets.all(8.0),
       child: TextField(
         controller: new TextEditingController(text: dungeonName),
-        style: quicksand(),
+        style: CommonStyle.quicksand(),
         decoration: InputDecoration(
             contentPadding: EdgeInsets.all(15.0),
             fillColor: Colors.grey[200],
@@ -211,7 +212,7 @@ class _NewDungeonState extends State<NewDungeon> {
             padding: const EdgeInsets.only(left: 30.0),
             child: Text(
               labelText,
-              style: quicksand(fontSize: 18.0),
+              style: CommonStyle.quicksand(fontSize: 18.0),
             ),
           ),
         ],
@@ -229,7 +230,7 @@ class _NewDungeonState extends State<NewDungeon> {
           activeColor: Colors.deepPurpleAccent,
           title: Text(
             monster.name,
-            style: quicksand(),
+            style: CommonStyle.quicksand(),
           ),
           controlAffinity: ListTileControlAffinity.leading,
           onChanged: (bool value) {
@@ -259,7 +260,7 @@ class _NewDungeonState extends State<NewDungeon> {
           activeColor: Colors.deepPurpleAccent,
           title: Text(
             object.name,
-            style: quicksand(),
+            style: CommonStyle.quicksand(),
           ),
           controlAffinity: ListTileControlAffinity.leading,
           onChanged: (bool value) {
@@ -307,7 +308,7 @@ class _NewDungeonState extends State<NewDungeon> {
         ),
         Text(
           dungeonData.vertical.toString(),
-          style: quicksand(),
+          style: CommonStyle.quicksand(),
         ),
         InkWell(
           onTap: () {
@@ -354,7 +355,7 @@ class _NewDungeonState extends State<NewDungeon> {
         ),
         Text(
           dungeonData.horizontal.toString(),
-          style: quicksand(),
+          style: CommonStyle.quicksand(),
         ),
         InkWell(
           onTap: () {
@@ -377,14 +378,6 @@ class _NewDungeonState extends State<NewDungeon> {
       ],
     );
   }
-
-  /// Default Text Style
-  quicksand({double fontSize: 14.0}) {
-    return TextStyle(
-      fontFamily: 'Quicksand',
-      fontSize: fontSize,
-    );
-  }
 }
 
 //*****************************
@@ -401,19 +394,3 @@ class DungeonData {
   DungeonData(this.dungeonName, this.horizontal, this.vertical,
       this.monsterList, this.objectList);
 }
-
-//class Monster {
-//  final String monsterName;
-//  bool checked = false;
-//  final Icon monsterIcon;
-//
-//  Monster(this.monsterName, this.monsterIcon);
-//}
-
-//class Object {
-//  final String objectName;
-//  bool checked = false;
-//  final Icon objectIcon;
-//
-//  Object(this.objectName, this.objectIcon);
-//}
