@@ -21,7 +21,7 @@ class DungeonCard extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       width: size.width * .65,
       height: size.height * .60,
-      margin: EdgeInsets.symmetric(vertical: 50, horizontal: 20),
+      margin: EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(30.0)),
           color: Colors.white,

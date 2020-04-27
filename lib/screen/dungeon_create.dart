@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:randomdungeongenerator/main.dart';
-import 'package:randomdungeongenerator/model/Object.dart';
-import 'package:randomdungeongenerator/model/Monster.dart';
-import 'package:randomdungeongenerator/model/GridItem.dart';
+import 'package:randomdungeongenerator/viewmodel/Object.dart';
+import 'package:randomdungeongenerator/viewmodel/Monster.dart';
+import 'package:randomdungeongenerator/viewmodel/GridItem.dart';
 import 'package:randomdungeongenerator/common_style.dart';
-
-import 'dungeon.dart';
+import 'package:randomdungeongenerator/screen/top_page.dart';
 
 /// New Dungeon Page
 class NewDungeon extends StatefulWidget {
