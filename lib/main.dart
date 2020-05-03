@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:randomdungeongenerator/screen/top_page.dart';
+import 'package:randomdungeongenerator/screen/top_page_tile.dart';
 
 void main() {
   debugPaintSizeEnabled = false;
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Quicksand',
       ),
-      home: TopPage(),
+      home: TopPageTile(),
     );
   }
 }

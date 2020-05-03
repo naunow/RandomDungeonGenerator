@@ -7,8 +7,12 @@ const kBodyTextColor = Color(0xFF303030);
 final kShadowColor = Color(0xFF000000).withOpacity(.12);
 
 /// Stages
-const String stageCorners = 'corners';
-const String stageSingleCorners = "singleCorners";
+const String stageCorners = '00';
+const String stageSingleCorners = "10";
+const String stageCircle = "20";
+const String stageFlat = "30";
+const String stageX = "40";
+const String stageArena = "50";
 
 /// Label Text
 class LabelContainer extends StatelessWidget {

@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
 import 'GridItem.dart';
 
 class Monster extends GridItem {

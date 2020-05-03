@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:randomdungeongenerator/widget/dungeon_card.dart';
-
 import '../common_style.dart';
 import 'dungeon_detail.dart';
 import 'dungeon_create.dart';
