@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:randomdungeongenerator/screen/top_page_tile.dart';
 
 void main() {
-  debugPaintSizeEnabled = false;
+  debugPaintSizeEnabled = true;
   runApp(MyApp());
 }
 

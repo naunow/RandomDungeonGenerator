@@ -5,7 +5,7 @@ class Stage{
   String name;
   int column;
   int row;
-  List<int> disabledTiles;
+  List<int> wallTiles;
   List<Object> objects;
   List<Monster> monsters;
 }

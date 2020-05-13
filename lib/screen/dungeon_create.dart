@@ -17,12 +17,12 @@ class NewDungeon extends StatefulWidget {
 
 class _NewDungeonState extends State<NewDungeon> {
   var dungeonData = DungeonData('Test Cave', 8, 6, [
-    Monster('goblin', Icon(Icons.golf_course), false),
-    Monster('troll', Icon(Icons.control_point), false)
+//    Monster('goblin', Icon(Icons.golf_course), false),
+//    Monster('troll', Icon(Icons.control_point), false)
   ], [
-    Object('barrel', Icon(Icons.battery_alert), false),
-    Object('brick wall', Icon(Icons.broken_image), false),
-    Object('trap', Icon(Icons.track_changes), false)
+//    Object('barrel', Icon(Icons.battery_alert), false),
+//    Object('brick wall', Icon(Icons.broken_image), false),
+//    Object('trap', Icon(Icons.track_changes), false)
   ]);
 
   @override
