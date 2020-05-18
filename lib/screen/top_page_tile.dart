@@ -37,109 +37,71 @@ class _TopPageTileState extends State<TopPageTile> {
   }
 
   stageTiles() {
+    var allMonsters = [
+      Monster('Goblin', MonstersDemo.goblin_head, true),
+      Monster('Golem', MonstersDemo.ice_golem, true),
+      Monster('Orge', MonstersDemo.ogre, true),
+      Monster('Orc', MonstersDemo.orc_head, true)];
+
+    var allObjects = [
+      Object('Barrel', ObjectsDemo.barrel, true),
+      Object('Brick Wall', ObjectsDemo.brick_wall, true),
+      Object('Lava', ObjectsDemo.lava, true),
+      Object('Chest', ObjectsDemo.chest, true),
+      Object('Spiky pit', ObjectsDemo.spiky_pit, true),
+      Object('Spill', ObjectsDemo.spill, true)
+    ];
+
     var stages = List<Stage>()
     //region Test Stage Data
     ..add(Stage()
-      ..name = 'Arena 1'
-      ..value = '10'
-      ..column = 9
-      ..row = 9
-      ..wallTiles = [0, 1, 7, 8, 9, 10, 16, 17, 63, 64, 70, 71, 72, 73, 79, 80]
-      ..monsters = ([
-//        Monster('Troll', Icon(Icons.add), true),
-//        Monster('Goblin', Icon(Icons.star), false),
-//        Monster('Slime', Icon(Icons.opacity), true)
-          ])
-      ..objects = ([
-//        Object('Object 1', Icon(Icons.style), true),
-//        Object('Object 2', Icon(Icons.track_changes), true),
-//        Object('Object 3', Icon(Icons.zoom_out_map), false)
-      ])
+      ..name = 'Arena Corner'
+      ..column = 11
+      ..row = 11
+      ..wallTiles = arenaCorner
+      ..monsters = allMonsters
+      ..objects = allObjects
+      ..monsterRate = 4
+      ..objectRate = 10
     )
     ..add(Stage()
-      ..name = 'Arena 2'
-      ..value = '20'
-      ..column = 9
-      ..row = 9
-      ..wallTiles = [0, 8, 72, 80]
-      ..monsters = ([
-        Monster('Troll', MonstersDemo.goblin_head, true),
-        Monster('Golem', MonstersDemo.ice_golem, true),
-        Monster('Orge', MonstersDemo.ogre, true)])
-      ..objects = ([
-        Object('Barrel', ObjectsDemo.barrel, true),
-        Object('Brick Wall', ObjectsDemo.brick_wall, true),
-        Object('Brick Wall', ObjectsDemo.lava, true),
-        Object('Chest', ObjectsDemo.chest, true)
-      ])
-    )
-    ..add(Stage()
-      ..name = 'Arena 3'
-      ..value = '30'
-      ..column = 9
-      ..row = 9
-      ..wallTiles = [0, 1, 7, 8, 9, 17, 63, 71, 72, 73, 79, 80]
-      ..monsters = ([
-//        Monster('Troll', Icon(Icons.add_box), false),
-//        Monster('Goblin', Icon(Icons.star), true),
-//        Monster('Slime', Icon(Icons.opacity), false)
-        ])
-      ..objects = ([
-//        Object('Object 1', Icon(Icons.style), false),
-//        Object('Object 2', Icon(Icons.track_changes), false),
-//        Object('Object 3', Icon(Icons.zoom_out_map), true)
-        ])
+      ..name = 'Arena Circle'..column = 11
+      ..row = 11
+      ..wallTiles = arenaCircle
+      ..monsters = allMonsters
+      ..objects = allObjects
+      ..monsterRate = 6
+      ..objectRate = 10
       )
     ..add(Stage()
-      ..name = 'Arena 4'
-      ..value = '30'
-      ..column = 9
-      ..row = 9
-      ..wallTiles = [3, 4, 5, 13, 27, 35, 36, 37, 43, 44, 45, 53, 67, 75, 76, 77]
-      ..monsters = ([
-//        Monster('Troll', Icon(Icons.add_box), false),
-//        Monster('Goblin', Icon(Icons.star), true),
-//        Monster('Slime', Icon(Icons.opacity), false)
-        ])
-      ..objects = ([
-//        Object('Object 1', Icon(Icons.style), false),
-//        Object('Object 2', Icon(Icons.track_changes), false),
-//        Object('Object 3', Icon(Icons.zoom_out_map), true)
-      ])
+      ..name = 'Arena X'
+      ..column = 11
+      ..row = 11
+      ..wallTiles = arenaX
+      ..monsters = allMonsters
+      ..objects = allObjects
+      ..monsterRate = 10
+      ..objectRate = 12
     )
     ..add(Stage()
-      ..name = 'Arena 5'
-      ..value = '30'
-      ..column = 9
-      ..row = 9
-      ..wallTiles = List<int>()
-      ..monsters = ([
-//        Monster('Troll', Icon(Icons.add_box), false),
-//        Monster('Goblin', Icon(Icons.star), true),
-//        Monster('Slime', Icon(Icons.opacity), false)
-        ])
-      ..objects = ([
-//        Object('Object 1', Icon(Icons.style), false),
-//        Object('Object 2', Icon(Icons.track_changes), false),
-//        Object('Object 3', Icon(Icons.zoom_out_map), true)
-      ])
+      ..name = 'Arena Flat'
+      ..column = 11
+      ..row = 11
+      ..wallTiles = []
+      ..monsters = allMonsters
+      ..objects = allObjects
+      ..monsterRate = 12
+      ..objectRate = 12
     )
     ..add(Stage()
-      ..name = 'Arena 6'
-      ..value = '30'
-      ..column = 9
-      ..row = 9
-      ..wallTiles = [0, 8, 9, 17, 18, 19, 25, 26, 28, 34, 46, 52, 54, 55, 61, 62, 63, 71, 72, 80]
-      ..monsters = ([
-//        Monster('Troll', Icon(Icons.add_box), false),
-//        Monster('Goblin', Icon(Icons.star), true),
-//        Monster('Slime', Icon(Icons.opacity), false)
-        ])
-      ..objects = ([
-//        Object('Object 1', Icon(Icons.style), false),
-//        Object('Object 2', Icon(Icons.track_changes), false),
-//        Object('Object 3', Icon(Icons.zoom_out_map), true)
-      ])
+      ..name = 'Arena Labyrinth'
+      ..column = 11
+      ..row = 11
+      ..wallTiles = arenaLabyrinth
+      ..monsters = allMonsters
+      ..objects = allObjects
+      ..monsterRate = 14
+      ..objectRate = 14
       //endregion
     );
 
