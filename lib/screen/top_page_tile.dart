@@ -65,7 +65,8 @@ class _TopPageTileState extends State<TopPageTile> {
       ..objectRate = 10
     )
     ..add(Stage()
-      ..name = 'Arena Circle'..column = 11
+      ..name = 'Arena Circle'
+      ..column = 11
       ..row = 11
       ..wallTiles = arenaCircle
       ..monsters = allMonsters

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:randomdungeongenerator/model/model_stage.dart';
 import 'package:randomdungeongenerator/screen/top_page_tile.dart';
-
+import 'dart:async';
 import 'model/db_propvider.dart';
 
 void main() {
@@ -33,7 +33,7 @@ class DatabaseTest extends StatefulWidget {
 
 class _DatabaseTestState extends State<DatabaseTest> {
   Future<List<ModelStage>> stages;
-  var dbHelper;
+  DbProvider dbHelper;
   bool isUpdating;
 
   @override
@@ -41,19 +41,38 @@ class _DatabaseTestState extends State<DatabaseTest> {
     // TODO: implement initState
     super.initState();
     dbHelper = DbProvider();
+    dbHelper.init();
     isUpdating = false;
     refreshList();
   }
 
   refreshList() {
     setState(() {
-      stages = dbHelper.getStage();
+      stages = dbHelper.getStages();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    List<ModelStage> a = dbHelper.getStage();
-    return Container(child: Text(a[0].name),);
+    var stages = dbHelper.getStages();
+//    var test = a.then((item)=>item[0].name);
+    return SafeArea(
+      child: Scaffold(
+        body: FutureBuilder(future: stages,builder: (context, snapshot){
+          if(snapshot.hasData){
+            return _getList(snapshot.data);
+          }else{
+            return Text('mada');
+          }
+        },),
+      ),
+    );
   }
+
+}
+
+_getList(List<ModelStage> stages) {
+  return ListView.builder(itemBuilder: (BuildContext context, int index){
+    return Card(child: Column(children: <Widget>[Text(stages[index].name),Text(stages[index].wallTiles)],));
+  },itemCount: stages.length,);
 }

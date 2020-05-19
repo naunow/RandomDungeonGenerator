@@ -1,7 +1,9 @@
+import 'dart:ffi';
 import 'dart:io' as io;
 
 import 'package:path/path.dart';
 import 'package:randomdungeongenerator/model/model_stage.dart';
+import 'package:randomdungeongenerator/viewmodel/Stage.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DbProvider {
@@ -57,6 +59,19 @@ class DbProvider {
   Future<List<ModelStage>> getStages() async {
     var dbClient = await db;
     //List<Map> maps = await dbClient.query(TABLE, columns: [ID, TABLE]);
+    var countSql = await dbClient.rawQuery("SELECT COUNT(*) FROM $TABLE");
+//    if (countSql[0]['COUNT(*)'] == 2) {
+//
+////    var newStage = ModelStage(null, 'TEST ARENA', 11, 11, '[12,20,100,108]', 13, 16);
+////      var newStage = ModelStage(null, 'Arena Corner', 11, 11, '[12,20,100,108]', 4, 10);
+////      save(newStage);
+//      save(ModelStage(null, 'Arena Corner', 11, 11, '[12,20,100,108]', 4, 10));
+//      save(ModelStage(null, 'Arena Circle', 11, 11, '[12,13,19,20,23,31,89,97,100,101,107,108]', 6, 10));
+//      save(ModelStage(null, 'Arena X', 11, 11, '[15,16,17,27,45,53,56,57,63,64,67,75,93,103,104,105]', 10, 12));
+//      save(ModelStage(null, 'Arena Flat', 11, 11, '[]', 12, 12));
+//      save(ModelStage(null, 'Arena Labyrinth', 11, 11, '[12,20,23,31,34,35,41,42,46,52,68,74,78,79,85,86,89,97,100,108]', 14, 14));
+//    }
+
     List<Map> maps = await dbClient.rawQuery("SELECT * FROM $TABLE");
     List<ModelStage> stages = [];
     if (maps.length > 0) {
