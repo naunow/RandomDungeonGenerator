@@ -58,21 +58,29 @@ class _DatabaseTestState extends State<DatabaseTest> {
 //    var test = a.then((item)=>item[0].name);
     return SafeArea(
       child: Scaffold(
-        body: FutureBuilder(future: stages,builder: (context, snapshot){
-          if(snapshot.hasData){
+        body: FutureBuilder(future: stages, builder: (context, snapshot) {
+          if (snapshot.hasData) {
             return _getList(snapshot.data);
-          }else{
+          } else {
             return Text('mada');
           }
         },),
       ),
     );
   }
-
 }
 
 _getList(List<ModelStage> stages) {
-  return ListView.builder(itemBuilder: (BuildContext context, int index){
-    return Card(child: Column(children: <Widget>[Text(stages[index].name),Text(stages[index].wallTiles)],));
-  },itemCount: stages.length,);
+  return ListView.builder(itemBuilder: (BuildContext context, int index) {
+    return Card(child: Column(children: <Widget>[
+      Text("ID:${stages[index].id.toString()}"),
+      Text("NAME:${stages[index].name}"),
+      Text("WALL TILES:${stages[index].wallTiles}"),
+      Text("MONSTER RATE:${stages[index].monsterRate.toString()}"),
+      Text("OBJECT RATE:${stages[index].objectRate.toString()}"),
+      Text("MONSTER ARRAY:${stages[index].monsterIdArray}"),
+      Text("OBJECT ARRAY:${stages[index].objectIdArray}"),
+
+    ],));
+  }, itemCount: stages.length,);
 }

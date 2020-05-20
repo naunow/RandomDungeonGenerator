@@ -6,9 +6,11 @@ class ModelStage {
   String wallTiles;
   int monsterRate;
   int objectRate;
+  String monsterIdArray;
+  String objectIdArray;
 
   ModelStage(this.id, this.name, this.column, this.row, this.wallTiles,
-      this.monsterRate, this.objectRate);
+      this.monsterRate, this.objectRate, this.monsterIdArray, this.objectIdArray);
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
@@ -19,6 +21,8 @@ class ModelStage {
       'wallTiles': wallTiles,
       'monsterRate': monsterRate,
       'objectRate': objectRate,
+      'monsterIdArray':monsterIdArray,
+      'objectIdArray':objectIdArray,
     };
 
     return map;
@@ -32,5 +36,7 @@ class ModelStage {
     wallTiles = map['wallTiles'];
     monsterRate = map['monsterRate'];
     objectRate = map['objectRate'];
+    monsterIdArray = map['monsterIdArray'];
+    objectIdArray = map['objectIdArray'];
   }
 }
