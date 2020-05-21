@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Quicksand',
       ),
-      home: DatabaseTest(),//TopPageTile(),
+      home: TopPageTile(),
     );
   }
 }

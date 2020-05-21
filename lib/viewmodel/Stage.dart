@@ -2,6 +2,7 @@ import 'Monster.dart';
 import 'Object.dart';
 
 class Stage {
+  int id;
   String name;
   int column;
   int row;
