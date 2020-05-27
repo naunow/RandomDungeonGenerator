@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:randomdungeongenerator/customicon/monsters_demo_icons_icons.dart';
 import 'package:randomdungeongenerator/customicon/objects_demo_icons.dart';
@@ -9,6 +10,7 @@ import 'package:randomdungeongenerator/viewmodel/Stage.dart';
 import 'package:randomdungeongenerator/widget/stage_tile.dart';
 import '../common_style.dart';
 import 'dungeon_detail.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class TopPageTile extends StatefulWidget {
   @override
@@ -16,7 +18,8 @@ class TopPageTile extends StatefulWidget {
 }
 
 class _TopPageTileState extends State<TopPageTile> {
-  var dbStages = DbProvider().getStages();
+var stages = DbProvider().getModelStages();
+
   var allMonsters = [
     Monster('Goblin', MonstersDemo.goblin_head, true),
     Monster('Golem', MonstersDemo.ice_golem, true),
@@ -43,7 +46,7 @@ class _TopPageTileState extends State<TopPageTile> {
               stops: [0.1, 0.3, 0.6, 0.9],
               colors: kGradient),
         ),
-        child: FutureBuilder(future: dbStages,
+        child: FutureBuilder(future: stages,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<Stage> stages = _convertToStage(snapshot.data);
@@ -69,7 +72,7 @@ class _TopPageTileState extends State<TopPageTile> {
                 children: widgets,
               );
             } else {
-              return Text('loading now');
+              return Center(child: CircularProgressIndicator());
             }
           },),
     ),);
@@ -93,9 +96,65 @@ class _TopPageTileState extends State<TopPageTile> {
         ..wallTiles = intWallList
         ..monsterRate = modelStage.monsterRate
         ..objectRate = modelStage.objectRate
-        ..monsters = allMonsters
-        ..objects = allObjects);
+//        ..monsters = allMonsters
+//        ..objects = allObjects
+        ..monsters = _getMonsterList(modelStage.monsterIdArray)
+        ..objects = allObjects
+      );
     }
     return stages;
   }
+
+List<int> _getArray(String array) {
+  var stringArray = array.split(',');
+  List<int> intArray = [];
+  stringArray.forEach((s) => s == "" ? null : intArray.add(int.parse(s)));
+  return intArray;
+}
+
+List<Monster> _getMonsterList(String array) {
+  var monsterIDs = _getArray(array);
+
+  var stageMonsters = List<Monster>();
+  var stringData = _loadAVaultAsset('source/monster.json').then((json) =>
+  stageMonsters = _getStageMonsters(json, monsterIDs));
+  return stageMonsters;
+}
+
+_getStageMonsters(String json, List<int> intArray) {
+  var stageMonsters = List<Monster>();
+  var monsterJson = jsonDecode(json);
+  for (var i = 0; i < monsterJson['monster'].length; i++) {
+    var m = monsterJson['monster'][i];
+    if (intArray.contains(int.parse(m['id']))) {
+      var monster = Monster(m['name'], IconData(
+          int.parse(m['icon']), fontFamily: m['iconFileName'],
+          fontPackage: null),
+          true);
+      stageMonsters.add(monster);
+    }
+  }
+  return stageMonsters;
+}
+
+Future<String> _loadAVaultAsset(String url) async {
+  return await rootBundle.loadString(url);
+}
+
+List<Object> _getObjectList(String array) {
+  var intArray = _getArray(array);
+  var stringData = rootBundle.loadString('source/object.json').toString();
+  var objectJson = jsonDecode(stringData);
+  var stageObjects = List<Object>();
+
+  for (var m in objectJson) {
+    if (intArray.contains(m.id)) {
+      var obj = Object(m.name, IconData(
+          int.parse(m.icon), fontFamily: m.iconFileName, fontPackage: null),
+          true);
+      stageObjects.add(obj);
+    }
+  }
+  return stageObjects;
+}
 }

@@ -1,8 +1,9 @@
-import 'dart:ffi';
-import 'dart:io' as io;
-
+import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart';
 import 'package:randomdungeongenerator/model/model_stage.dart';
+import 'package:randomdungeongenerator/viewmodel/Monster.dart';
+import 'package:randomdungeongenerator/viewmodel/Object.dart';
 import 'package:randomdungeongenerator/viewmodel/Stage.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -66,7 +67,7 @@ class DbProvider {
     return stage;
   }
 
-  Future<List<ModelStage>> getStages() async {
+  Future<List<ModelStage>> getModelStages() async {
     var dbClient = await db;
 
     List<Map> maps = await dbClient.rawQuery("SELECT * FROM $TABLE");
@@ -78,6 +79,29 @@ class DbProvider {
     }
     return stages;
   }
+
+//  List<Stage> getStages() {
+//    var modelStages = getModelStages();
+//
+//    var stages = List<Stage>();
+//
+//    modelStages.then((modelStage) {
+//      for (var m in modelStage) {
+//        var stage = Stage()
+//          ..id = m.id
+//          ..name = m.name
+//          ..row = m.row
+//          ..column = m.column
+//          ..objectRate = m.objectRate
+//          ..monsterRate = m.monsterRate
+//          ..wallTiles = _getArray(m.wallTiles)
+//          ..monsters = _getMonsterList(m.monsterIdArray);
+//
+//        stages.add(stage);
+//      }
+//    });
+//    return stages;
+//  }
 
   Future<int> delete(int id) async {
     var dbClient = await db;
@@ -94,5 +118,6 @@ class DbProvider {
     var dbClient = await db;
     dbClient.close();
   }
+
 
 }

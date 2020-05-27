@@ -1,0 +1,16 @@
+{
+  "monster": [
+    {
+      "id": "1",
+      "name": "Goblin",
+      "icon": "0xe803",
+      "iconFileName": "MonstersDemo"
+    },
+    {
+      "id": "2",
+      "name": "Slime",
+      "icon": "0xe805",
+      "iconFileName": "MonstersDemo"
+    }
+  ]
+}

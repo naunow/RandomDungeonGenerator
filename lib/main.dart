@@ -48,13 +48,13 @@ class _DatabaseTestState extends State<DatabaseTest> {
 
   refreshList() {
     setState(() {
-      stages = dbHelper.getStages();
+      stages = dbHelper.getModelStages();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    var stages = dbHelper.getStages();
+    var stages = dbHelper.getModelStages();
 //    var test = a.then((item)=>item[0].name);
     return SafeArea(
       child: Scaffold(
